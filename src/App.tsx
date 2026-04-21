@@ -160,10 +160,10 @@ function App() {
   }
 
   const handleProjectsClick = () =>
-    startTransition(currentPage === 'projects' ? 'home' : 'projects', 'iris', projectsBtnRef.current)
+    startTransition('projects', 'iris', projectsBtnRef.current)
 
   const handleHobbiesClick = () =>
-    startTransition(currentPage === 'hobbies' ? 'home' : 'hobbies', 'slide')
+    startTransition('hobbies', 'slide')
 
   const handleShellAnimationEnd = (e: React.AnimationEvent<HTMLElement>) => {
     if (e.target !== e.currentTarget) return
