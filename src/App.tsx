@@ -208,6 +208,9 @@ function App() {
       <audio ref={transitionAudioRef} src="/trading_nation-transition-futuristic-ufo-121421.mp3" />
 
       <div className="deep-space" aria-hidden="true" />
+
+      {currentPage === 'home' && <img className="death-star" src="/deathstar_PNG.png" alt="" aria-hidden="true" />}
+
       <div className="still-stars" aria-hidden="true" />
       <div className="hyperspace" aria-hidden="true">
         {streaks.map((streak) => (

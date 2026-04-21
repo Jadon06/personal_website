@@ -40,10 +40,30 @@
   background: radial-gradient(circle at center, transparent 18%, #000 88%);
 }
 
+.death-star {
+  position: fixed;
+  top: 120px;
+  right: 180px;
+  width: clamp(55px, 9vw, 130px);
+  z-index: -2;
+  pointer-events: none;
+  opacity: 0;
+  filter: brightness(0.7);
+  -webkit-mask-image: radial-gradient(ellipse 75% 70% at 30% 55%, white 30%, rgba(0,0,0,0.5) 58%, transparent 75%);
+  mask-image: radial-gradient(ellipse 75% 70% at 30% 55%, white 30%, rgba(0,0,0,0.5) 58%, transparent 75%);
+  animation: reveal-death-star 600ms ease-out 2.5s forwards;
+}
+
+@keyframes reveal-death-star {
+  to { opacity: 1; }
+}
+
 .still-stars {
   position: fixed;
   inset: 0;
   z-index: -3;
+  -webkit-mask-image: radial-gradient(circle at calc(100% - 180px - 4.5vw) calc(120px + 4.5vw), transparent calc(4.5vw + 8px), white calc(4.5vw + 22px));
+  mask-image: radial-gradient(circle at calc(100% - 180px - 4.5vw) calc(120px + 4.5vw), transparent calc(4.5vw + 8px), white calc(4.5vw + 22px));
   opacity: 0;
   animation: reveal-still-stars 360ms ease-out 2.5s forwards;
   background:
@@ -126,22 +146,17 @@
   font-style: normal;
   font-weight: 400;
   text-transform: none;
-  color: #ffe04f;
+  color: #000000;
   font-size: clamp(2.35rem, 9vw, 7.6rem);
   letter-spacing: 0;
   font-kerning: none;
   font-variant-ligatures: none;
   line-height: 0.95;
-  -webkit-text-stroke: 1.6px #1f1400;
-  text-shadow:
-    0 0 14px #ffdf4d99,
-    0 0 38px #ffc40080,
-    -2px -2px 0 #1f1400,
-    2px -2px 0 #1f1400,
-    -2px 2px 0 #1f1400,
-    2px 2px 0 #1f1400;
+  -webkit-text-stroke: 1.5px #ffe04f;
   transform-style: preserve-3d;
-  animation: jump-from-hyperspace 2.65s cubic-bezier(0.08, 0.86, 0.19, 1) both;
+  animation:
+    jump-from-hyperspace 2.65s cubic-bezier(0.08, 0.86, 0.19, 1) both,
+    nameplate-colorize 2s ease 2.65s both;
 }
 
 .nameplate span {
@@ -178,6 +193,17 @@
   }
 }
 
+@keyframes nameplate-colorize {
+  0% {
+    color: #000000;
+    -webkit-text-stroke: 1.5px #ffe04f;
+  }
+  100% {
+    color: #000000;
+    -webkit-text-stroke: 1.5px #ffe04f;
+  }
+}
+
 @keyframes hyperspace-streak {
   0% {
     transform: translateX(-1.5vmax) scaleX(0.01);
@@ -188,12 +214,18 @@
     opacity: 1;
   }
 
-  78% {
+  55% {
+    transform: translateX(48vmax) scaleX(1.05);
     opacity: 1;
   }
 
+  82% {
+    transform: translateX(6vmax) scaleX(0.18);
+    opacity: 0.5;
+  }
+
   100% {
-    transform: translateX(95vmax) scaleX(1.08);
+    transform: translateX(0vmax) scaleX(0.01);
     opacity: 0;
   }
 }
