@@ -1,0 +1,142 @@
+@import url('./App.css');
+
+.projects-page {
+  position: fixed;
+  inset: 0;
+  z-index: 15;
+  overflow-y: auto;
+  padding: clamp(4.5rem, 8vw, 6rem) clamp(1.25rem, 5vw, 4rem) clamp(2rem, 4vw, 3rem);
+}
+
+/* ── Header ── */
+.projects-header {
+  text-align: center;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.projects-title {
+  font-family: 'Star Jedi Outline Local', sans-serif;
+  font-weight: 400;
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  color: #ffe04f;
+  margin: 0;
+  letter-spacing: 0.05em;
+  -webkit-text-stroke: 1px #1f1400;
+  text-shadow:
+    0 0 14px #ffdf4d88,
+    0 0 38px #ffc40055,
+    -1px -1px 0 #1f1400,
+    1px 1px 0 #1f1400;
+}
+
+.projects-title-rule {
+  width: min(480px, 80%);
+  height: 1px;
+  margin: 0 auto;
+  background: linear-gradient(90deg, transparent, #ffe04faa, transparent);
+}
+
+/* ── Grid ── */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(480px, 100%), 1fr));
+  gap: clamp(1rem, 2.5vw, 1.75rem);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ── Card ── */
+.project-card {
+  background: rgba(4, 9, 22, 0.78);
+  border: 1px solid #ffe04f33;
+  border-left: 3px solid #ffe04f;
+  padding: clamp(1rem, 2.5vw, 1.5rem) clamp(1rem, 2.5vw, 1.5rem) clamp(1rem, 2.5vw, 1.5rem) clamp(1.1rem, 2.5vw, 1.6rem);
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+.project-card:hover {
+  border-color: #ffe04f88;
+  border-left-color: #ffe04f;
+  box-shadow: 0 0 24px #ffe04f18, inset 0 0 20px #ffe04f08;
+}
+
+.project-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9em;
+  margin-bottom: 0.9em;
+}
+
+.project-logo {
+  width: clamp(2.8rem, 5vw, 4rem);
+  height: clamp(2.8rem, 5vw, 4rem);
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.project-numeral {
+  font-family: 'Star Jedi Outline Local', sans-serif;
+  font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+  color: #ffe04f;
+  -webkit-text-stroke: 0.8px #1f1400;
+  text-shadow: 0 0 10px #ffdf4d66;
+  line-height: 1.2;
+  flex-shrink: 0;
+  padding-top: 0.1em;
+  min-width: 1.8em;
+}
+
+.project-name {
+  font-family: var(--body-font);
+  font-weight: 700;
+  font-size: clamp(0.9rem, 1.6vw, 1.05rem);
+  color: #ffe04f;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 0.2em;
+}
+
+.project-link {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.project-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.project-date {
+  font-family: var(--body-font);
+  font-size: clamp(0.7rem, 1.1vw, 0.8rem);
+  color: #ffe04f77;
+  letter-spacing: 0.05em;
+}
+
+/* ── Bullets ── */
+.project-bullets {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55em;
+}
+
+.project-bullets li {
+  font-family: var(--body-font);
+  font-size: clamp(0.78rem, 1.3vw, 0.9rem);
+  color: #b8cce8;
+  line-height: 1.55;
+  padding-left: 1.2em;
+  position: relative;
+}
+
+.project-bullets li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: #ffe04f;
+  font-weight: 700;
+}

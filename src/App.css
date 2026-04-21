@@ -1,0 +1,406 @@
+@font-face {
+  font-family: 'Star Jedi Outline Local';
+  src: url('/starjedi/Starjedi.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+.site-shell {
+  position: relative;
+  overflow: hidden;
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: clamp(1.5rem, 3vw, 3rem);
+}
+
+.deep-space {
+  position: fixed;
+  inset: 0;
+  z-index: -4;
+  background:
+    radial-gradient(circle at 50% 52%, #091426 0%, #050812 44%, #020305 100%),
+    linear-gradient(160deg, #03040a 0%, #080c18 36%, #020304 100%);
+}
+
+.deep-space::before,
+.deep-space::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.deep-space::before {
+  background: radial-gradient(circle at center, #10182755 0%, transparent 72%);
+}
+
+.deep-space::after {
+  background: radial-gradient(circle at center, transparent 18%, #000 88%);
+}
+
+.still-stars {
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  opacity: 0;
+  animation: reveal-still-stars 360ms ease-out 2.5s forwards;
+  background:
+    radial-gradient(circle, #ffffffd8 0.9px, transparent 1.3px),
+    radial-gradient(circle, #cfe6ffcc 0.85px, transparent 1.25px),
+    radial-gradient(circle, #f4f9ffde 1.05px, transparent 1.45px),
+    radial-gradient(circle at 9% 14%, #ffffff 0 1.6px, transparent 2px),
+    radial-gradient(circle at 22% 78%, #dceeff 0 1.4px, transparent 1.9px),
+    radial-gradient(circle at 41% 24%, #ffffff 0 1.5px, transparent 2px),
+    radial-gradient(circle at 64% 64%, #eaf4ff 0 1.45px, transparent 1.95px),
+    radial-gradient(circle at 82% 31%, #ffffff 0 1.6px, transparent 2px),
+    radial-gradient(circle at 95% 74%, #dceeff 0 1.45px, transparent 1.9px);
+  background-size:
+    132px 132px,
+    178px 178px,
+    246px 246px,
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    100% 100%;
+  background-position:
+    0 0,
+    36px 64px,
+    96px 18px,
+    0 0,
+    0 0,
+    0 0,
+    0 0,
+    0 0,
+    0 0;
+}
+
+.hyperspace {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+  animation: fade-warp 320ms ease-out 2.5s forwards;
+}
+
+.hyperspace::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, #ffffff20 0%, transparent 28%);
+}
+
+.streak-shell {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform-origin: center;
+}
+
+.streak {
+  display: block;
+  height: clamp(1px, 0.18vw, 2.4px);
+  border-radius: 999px;
+  background: linear-gradient(90deg, #ffffff00, #ffffff 20%, #ffffff 70%, #b9deff00 98%);
+  transform-origin: 0 50%;
+  animation-name: hyperspace-streak;
+  animation-iteration-count: 1;
+  animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(0.08, 0.74, 0.2, 1);
+}
+
+.hero-panel {
+  width: min(980px, 100%);
+  text-align: center;
+  padding: clamp(1rem, 2vw, 2rem);
+  perspective: 1250px;
+}
+
+.nameplate {
+  margin: 0;
+  font-family: 'Star Jedi Outline Local', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  text-transform: none;
+  color: #ffe04f;
+  font-size: clamp(2.35rem, 9vw, 7.6rem);
+  letter-spacing: 0;
+  font-kerning: none;
+  font-variant-ligatures: none;
+  line-height: 0.95;
+  -webkit-text-stroke: 1.6px #1f1400;
+  text-shadow:
+    0 0 14px #ffdf4d99,
+    0 0 38px #ffc40080,
+    -2px -2px 0 #1f1400,
+    2px -2px 0 #1f1400,
+    -2px 2px 0 #1f1400,
+    2px 2px 0 #1f1400;
+  transform-style: preserve-3d;
+  animation: jump-from-hyperspace 2.65s cubic-bezier(0.08, 0.86, 0.19, 1) both;
+}
+
+.nameplate span {
+  display: block;
+}
+
+.nameplate span + span {
+  margin-top: 0.12em;
+}
+
+@keyframes jump-from-hyperspace {
+  0% {
+    transform: translateZ(-2300px) scale(0.045) translateY(80px);
+    filter: blur(12px);
+    opacity: 0;
+    letter-spacing: 0;
+  }
+
+  35% {
+    opacity: 1;
+  }
+
+  72% {
+    transform: translateZ(260px) scale(1.33) translateY(0);
+    filter: blur(0.45px);
+    letter-spacing: 0;
+  }
+
+  100% {
+    transform: translateZ(0) scale(1);
+    filter: blur(0);
+    opacity: 1;
+    letter-spacing: 0;
+  }
+}
+
+@keyframes hyperspace-streak {
+  0% {
+    transform: translateX(-1.5vmax) scaleX(0.01);
+    opacity: 0;
+  }
+
+  8% {
+    opacity: 1;
+  }
+
+  78% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(95vmax) scaleX(1.08);
+    opacity: 0;
+  }
+}
+
+@keyframes fade-warp {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes reveal-still-stars {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.nav-buttons {
+  position: fixed;
+  top: clamp(1rem, 2vw, 1.5rem);
+  left: clamp(1rem, 2vw, 1.5rem);
+  display: flex;
+  gap: clamp(0.4rem, 1vw, 0.75rem);
+  z-index: 20;
+  opacity: 0;
+  animation: fade-in-nav 0.8s ease-out 3s forwards;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.nav-buttons--hidden {
+  transform: translateY(-140%);
+  opacity: 0 !important;
+}
+
+.nav-btn {
+  background: transparent;
+  border: 1px solid #ffe04f55;
+  color: #ffe04f;
+  font-family: var(--body-font);
+  font-size: clamp(0.65rem, 1.1vw, 0.85rem);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.45em 1em;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: border-color 0.25s, text-shadow 0.25s, background 0.25s;
+}
+
+.nav-btn:hover {
+  border-color: #ffe04f;
+  text-shadow: 0 0 10px #ffe04faa;
+  background: #ffe04f0d;
+}
+
+.nav-btn--active {
+  border-color: #ffe04f;
+  text-shadow: 0 0 10px #ffe04faa;
+  background: #ffe04f1a;
+}
+
+.nav-social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffe04f88;
+  border: 1px solid #ffe04f55;
+  border-radius: 999px;
+  width: 2em;
+  height: 2em;
+  text-decoration: none;
+  transition: color 0.25s, border-color 0.25s, background 0.25s;
+}
+
+.nav-social-link:hover {
+  color: #ffe04f;
+  border-color: #ffe04f;
+  background: #ffe04f0d;
+}
+
+.nav-sound-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2em;
+  height: 2em;
+  border: 1px solid #ffe04f;
+  border-radius: 999px;
+  background: #ffe04f1a;
+  color: #ffe04f;
+  filter: drop-shadow(0 0 5px #ffe04f88);
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.25s, border-color 0.25s, background 0.25s, filter 0.25s;
+}
+
+.nav-sound-btn:hover {
+  background: #ffe04f2a;
+}
+
+.nav-sound-btn--muted {
+  color: #ffe04f55;
+  border-color: #ffe04f33;
+  background: transparent;
+  filter: none;
+}
+
+.nav-sound-btn--muted:hover {
+  color: #ffe04faa;
+  border-color: #ffe04f88;
+  background: #ffe04f0d;
+}
+
+.audio-hint {
+  position: fixed;
+  top: calc(clamp(1rem, 2vw, 1.5rem) + 3rem);
+  left: clamp(1rem, 2vw, 1.5rem);
+  margin: 0;
+  color: #ffe04faa;
+  font-family: var(--body-font);
+  font-size: clamp(0.58rem, 0.85vw, 0.72rem);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  pointer-events: none;
+  z-index: 20;
+  opacity: 0;
+  animation: hint-lifecycle 7s ease 3s forwards;
+}
+
+@keyframes hint-lifecycle {
+  0%   { opacity: 0; transform: translateY(4px); }
+  12%  { opacity: 1; transform: translateY(0); }
+  75%  { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-3px); }
+}
+
+@keyframes fade-in-nav {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.iris-closing {
+  animation: iris-close 1.77s cubic-bezier(0.4, 0, 0.8, 1) forwards;
+}
+
+.iris-opening {
+  animation: iris-open 1.77s cubic-bezier(0.2, 0, 0.6, 1) forwards;
+}
+
+@keyframes iris-close {
+  from { clip-path: circle(150% at var(--cx) var(--cy)); }
+  to   { clip-path: circle(0%   at var(--cx) var(--cy)); }
+}
+
+@keyframes iris-open {
+  from { clip-path: circle(0%   at var(--cx) var(--cy)); }
+  to   { clip-path: circle(150% at var(--cx) var(--cy)); }
+}
+
+.slide-closing {
+  animation: slide-close 0.7s cubic-bezier(0.4, 0, 0.6, 1) forwards;
+}
+
+.slide-opening {
+  animation: slide-open 0.7s cubic-bezier(0.4, 0, 0.6, 1) forwards;
+}
+
+@keyframes slide-close {
+  from { clip-path: inset(0 0 0 0); }
+  to   { clip-path: inset(0 100% 0 0); }
+}
+
+@keyframes slide-open {
+  from { clip-path: inset(0 0 0 100%); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+
+@media (max-width: 900px) {
+  .hero-panel {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .streak,
+  .hyperspace,
+  .nameplate,
+  .still-stars,
+  .nav-buttons {
+    animation: none;
+  }
+
+  .still-stars {
+    opacity: 1;
+  }
+
+  .nav-buttons {
+    opacity: 1;
+  }
+}

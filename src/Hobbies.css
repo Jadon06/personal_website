@@ -1,0 +1,155 @@
+@import url('./App.css');
+
+/* ── Page Shell ── */
+.about-page {
+  position: fixed;
+  inset: 0;
+  z-index: 15;
+  overflow-y: auto;
+  padding: clamp(4.5rem, 8vw, 6rem) clamp(1.25rem, 5vw, 4rem) clamp(2rem, 4vw, 3rem);
+}
+
+/* ── Header ── */
+.about-header {
+  text-align: center;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.about-title {
+  font-family: 'Star Jedi Outline Local', sans-serif;
+  font-weight: 400;
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  color: #ffe04f;
+  margin: 0 0 0.5em;
+  letter-spacing: 0.05em;
+  -webkit-text-stroke: 1px #1f1400;
+  text-shadow:
+    0 0 14px #ffdf4d88,
+    0 0 38px #ffc40055,
+    -1px -1px 0 #1f1400,
+    1px 1px 0 #1f1400;
+}
+
+.about-title-rule {
+  width: min(480px, 80%);
+  height: 1px;
+  margin: 0 auto;
+  background: linear-gradient(90deg, transparent, #ffe04faa, transparent);
+}
+
+/* ── Stacked List ── */
+.about-list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.85rem, 1.5vw, 1.25rem);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ── Row Card ── */
+.about-row {
+  display: flex;
+  align-items: stretch;
+  background: rgba(4, 9, 22, 0.75);
+  border: 1px solid #ffe04f33;
+  border-left: 3px solid #ffe04f;
+  overflow: hidden;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+.about-row:hover {
+  border-color: #ffe04f77;
+  border-left-color: #ffe04f;
+  box-shadow: 0 0 24px #ffe04f14;
+}
+
+/* ── Alternating layout ── */
+.about-row--flip {
+  flex-direction: row-reverse;
+}
+
+/* ── Image Area ── */
+.about-row-images {
+  flex-shrink: 0;
+  width: clamp(200px, 38%, 420px);
+  display: flex;
+  gap: 2px;
+  background: #000;
+}
+
+.about-row-images--multi {
+  gap: 2px;
+}
+
+.about-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  min-height: 200px;
+}
+
+.about-row-images--multi .about-img {
+  width: 50%;
+  min-height: 200px;
+}
+
+/* ── Text Area ── */
+.about-row-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5em;
+  padding: clamp(1.2rem, 2.5vw, 2rem) clamp(1.2rem, 2.5vw, 2rem);
+}
+
+/* ── Tag ── */
+.about-tag {
+  display: inline-block;
+  font-family: var(--body-font);
+  font-size: clamp(0.6rem, 0.9vw, 0.72rem);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #ffe04f;
+  background: #ffe04f18;
+  border: 1px solid #ffe04f55;
+  padding: 0.2em 0.65em;
+  width: fit-content;
+}
+
+/* ── Card Text ── */
+.about-row-title {
+  font-family: var(--body-font);
+  font-weight: 700;
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  color: #ffe04f;
+  margin: 0;
+  letter-spacing: 0.04em;
+}
+
+.about-row-desc {
+  font-family: var(--body-font);
+  font-size: clamp(0.8rem, 1.2vw, 0.92rem);
+  color: #b8cce8;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .about-row {
+    flex-direction: column;
+  }
+
+  .about-row-images {
+    width: 100%;
+    height: 200px;
+  }
+
+  .about-row-images--multi .about-img {
+    width: 50%;
+    height: 200px;
+  }
+}
