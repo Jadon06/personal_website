@@ -29,6 +29,26 @@
     1px 1px 0 #1f1400;
 }
 
+.tech-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 2rem);
+  margin: clamp(0.75rem, 1.5vw, 1.1rem) 0;
+}
+
+.tech-icon {
+  width: clamp(26px, 3.5vw, 38px);
+  height: clamp(26px, 3.5vw, 38px);
+  opacity: 0.8;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.tech-icon:hover {
+  opacity: 1;
+  transform: translateY(-3px);
+}
+
 .projects-title-rule {
   width: min(480px, 80%);
   height: 1px;

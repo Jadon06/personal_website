@@ -244,6 +244,14 @@ function App() {
         >
           About
         </button>
+        <a
+          href="/Resume (2).pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="nav-btn"
+        >
+          Resume
+        </a>
         {currentPage === 'home' && (
           <button
             className={`nav-btn${!isMuted ? ' nav-btn--active' : ''}`}
