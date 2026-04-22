@@ -7,13 +7,14 @@ interface CrawlProps {
   crawlWidth?: string
   duration?: number
   onFirstWordVisible?: () => void
+  onBeforeFirstWordVisible?: () => void
 }
 
-export default function Crawl({ crawlWidth, duration, onFirstWordVisible }: CrawlProps) {
+export default function Crawl({ crawlWidth, duration, onFirstWordVisible, onBeforeFirstWordVisible }: CrawlProps) {
   const innerRef = useRef<HTMLDivElement>(null)
 
   useLayoutEffect(() => {
-    if (!onFirstWordVisible || !innerRef.current) return
+    if (!innerRef.current) return
 
     const elementHeight = innerRef.current.scrollHeight
     const vp = window.innerHeight
@@ -24,9 +25,11 @@ export default function Crawl({ crawlWidth, duration, onFirstWordVisible }: Craw
     const progress = travelToFirstWord / (vp * 2.2)
     const delayMs = (0.5 + progress * (duration ?? 32)) * 1000
 
-    const t = setTimeout(onFirstWordVisible, delayMs)
-    return () => clearTimeout(t)
-  }, [duration, onFirstWordVisible])
+    const timers: ReturnType<typeof setTimeout>[] = []
+    if (onFirstWordVisible) timers.push(setTimeout(onFirstWordVisible, Math.max(0, delayMs - 4000)))
+    if (onBeforeFirstWordVisible) timers.push(setTimeout(onBeforeFirstWordVisible, Math.max(0, delayMs - 5500)))
+    return () => timers.forEach(clearTimeout)
+  }, [duration, onFirstWordVisible, onBeforeFirstWordVisible])
 
   return (
     <div className="star-wars-crawl-bg">

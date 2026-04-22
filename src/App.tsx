@@ -35,6 +35,8 @@ const streaks: Streak[] = Array.from({ length: 92 }, (_, index) => {
 })
 
 function App() {
+  const [isMobile] = useState(() => window.innerWidth <= 768)
+
   const [currentPage, setCurrentPage] = useState<Page>('home')
   const [transitionPhase, setTransitionPhase] = useState<TransitionPhase>('idle')
   const [transitionType, setTransitionType] = useState<TransitionType>('iris')
@@ -49,6 +51,7 @@ function App() {
   const [navHidden, setNavHidden] = useState(false)
   const [showAudioHint, setShowAudioHint] = useState(true)
   const [isSoundMuted, setIsSoundMuted] = useState(false)
+  const [waitPromptVisible, setWaitPromptVisible] = useState(false)
   const lastScrollY = useRef(0)
 
   const auYeungRef = useRef<HTMLSpanElement>(null)
@@ -59,6 +62,7 @@ function App() {
   const crawlDurationRef = useRef<number>(32)
   const musicFadeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const musicFadeRafRef = useRef<number | null>(null)
+  const hyperspaceExitAudioRef = useRef<HTMLAudioElement>(null)
   const projectsBtnRef = useRef<HTMLButtonElement>(null)
   const hobbiesBtnRef = useRef<HTMLButtonElement>(null)
 
@@ -89,6 +93,28 @@ function App() {
   }
 
   useEffect(() => {
+    if (isMobile) {
+      const startMusic = () => {
+        const music = musicRef.current
+        if (music && music.paused) {
+          music.volume = 0.35
+          music.play().catch(() => {})
+        }
+        document.removeEventListener('click', startMusic)
+        document.removeEventListener('touchstart', startMusic)
+      }
+      document.addEventListener('click', startMusic)
+      document.addEventListener('touchstart', startMusic)
+      return () => {
+        document.removeEventListener('click', startMusic)
+        document.removeEventListener('touchstart', startMusic)
+      }
+    }
+
+    const exitSfxTimeout = setTimeout(() => {
+      const sfx = hyperspaceExitAudioRef.current
+      if (sfx) { sfx.currentTime = 0; sfx.play().catch(() => {}) }
+    }, 650)
     const timeout = setTimeout(() => {
       if (auYeungRef.current) {
         setCrawlWidth(auYeungRef.current.offsetWidth + 'px')
@@ -96,9 +122,12 @@ function App() {
       }
     }, 0)
     const hintTimeout = setTimeout(() => setShowAudioHint(false), 10000)
+    const waitPromptTimeout = setTimeout(() => setWaitPromptVisible(true), 3000)
     return () => {
+      clearTimeout(exitSfxTimeout)
       clearTimeout(timeout)
       clearTimeout(hintTimeout)
+      clearTimeout(waitPromptTimeout)
     }
   }, [])
 
@@ -130,6 +159,7 @@ function App() {
     setIsSoundMuted(next)
     if (musicRef.current) musicRef.current.muted = next
     if (transitionAudioRef.current) transitionAudioRef.current.muted = next
+    if (hyperspaceExitAudioRef.current) hyperspaceExitAudioRef.current.muted = next
   }
 
   const handleNarrateClick = () => {
@@ -206,6 +236,7 @@ function App() {
       />
       <audio ref={musicRef} src="/8d82b5_Star_Wars_Main_Theme_Song.mp3" />
       <audio ref={transitionAudioRef} src="/trading_nation-transition-futuristic-ufo-121421.mp3" />
+      <audio ref={hyperspaceExitAudioRef} src="/bh-exit-hyperspace.mp3" />
 
       <div className="deep-space" aria-hidden="true" />
 
@@ -255,7 +286,7 @@ function App() {
         >
           Resume
         </a>
-        {currentPage === 'home' && (
+        {currentPage === 'home' && !isMobile && (
           <button
             className={`nav-btn${!isMuted ? ' nav-btn--active' : ''}`}
             onClick={handleNarrateClick}
@@ -302,18 +333,31 @@ function App() {
         </button>
       </nav>
 
-      {currentPage === 'home' && showAudioHint && (
+      {currentPage === 'home' && showAudioHint && !isMobile && (
         <p className="audio-hint">click Narrate to turn off narration</p>
       )}
 
       {currentPage === 'home' && (
         <>
-          {showCrawl && crawlWidth && (
-            <Crawl crawlWidth={crawlWidth} duration={crawlDuration} onFirstWordVisible={handleFirstWordVisible} />
+          {!isMobile && showCrawl && crawlWidth && (
+            <Crawl crawlWidth={crawlWidth} duration={crawlDuration} onFirstWordVisible={handleFirstWordVisible} onBeforeFirstWordVisible={() => setWaitPromptVisible(false)} />
           )}
           <section className="hero-panel">
             <h1 className="nameplate">
-              <span>Jadon</span>
+              <span>
+                Jado
+                <span className="nameplate-n">
+                  n
+                  {!isMobile && (
+                    <span
+                      className="wait-prompt"
+                      style={{ opacity: waitPromptVisible ? 1 : 0 }}
+                    >
+                      wait for it...
+                    </span>
+                  )}
+                </span>
+              </span>
               <span ref={auYeungRef}>Au-Yeung</span>
             </h1>
           </section>

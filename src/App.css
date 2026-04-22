@@ -152,7 +152,7 @@
   font-kerning: none;
   font-variant-ligatures: none;
   line-height: 0.95;
-  -webkit-text-stroke: 1.5px #ffe04f;
+  -webkit-text-stroke: 2.5px #ffe04f;
   transform-style: preserve-3d;
   animation:
     jump-from-hyperspace 2.65s cubic-bezier(0.08, 0.86, 0.19, 1) both,
@@ -165,6 +165,27 @@
 
 .nameplate span + span {
   margin-top: 0.12em;
+}
+
+.nameplate .nameplate-n {
+  display: inline;
+  position: relative;
+}
+
+.wait-prompt {
+  position: absolute;
+  bottom: 0.85em;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-family: var(--body-font);
+  font-size: clamp(0.58rem, 0.85vw, 0.72rem);
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ffe04faa;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
 }
 
 @keyframes jump-from-hyperspace {
@@ -196,11 +217,11 @@
 @keyframes nameplate-colorize {
   0% {
     color: #000000;
-    -webkit-text-stroke: 1.5px #ffe04f;
+    -webkit-text-stroke: 2.5px #ffe04f;
   }
   100% {
     color: #000000;
-    -webkit-text-stroke: 1.5px #ffe04f;
+    -webkit-text-stroke: 2.5px #ffe04f;
   }
 }
 
