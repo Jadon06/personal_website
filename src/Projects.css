@@ -160,3 +160,13 @@
   color: #ffe04f;
   font-weight: 700;
 }
+
+@media (max-width: 768px) {
+  .projects-page {
+    padding: clamp(4rem, 8vw, 5rem) clamp(0.75rem, 3vw, 1.25rem) clamp(1.5rem, 3vw, 2rem);
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}

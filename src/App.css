@@ -422,6 +422,36 @@
   }
 }
 
+@media (max-width: 768px) {
+  .death-star {
+    display: none;
+  }
+
+  .still-stars {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .nav-buttons {
+    flex-wrap: wrap;
+    top: clamp(0.5rem, 1.5vw, 1rem);
+    left: clamp(0.5rem, 1.5vw, 1rem);
+    right: clamp(0.5rem, 1.5vw, 1rem);
+    gap: 0.35rem;
+  }
+
+  .nav-btn {
+    font-size: clamp(0.6rem, 2.5vw, 0.75rem);
+    padding: 0.4em 0.85em;
+  }
+
+  .audio-hint {
+    top: auto;
+    bottom: 1.5rem;
+    left: clamp(0.5rem, 1.5vw, 1rem);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .streak,
   .hyperspace,
