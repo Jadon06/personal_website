@@ -279,7 +279,7 @@ function App() {
           About
         </button>
         <a
-          href="/Resume (2).pdf"
+          href="/resume.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="nav-btn"

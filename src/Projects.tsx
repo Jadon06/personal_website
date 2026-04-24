@@ -17,12 +17,14 @@ const projects = [
   },
   {
     numeral: 'II',
-    name: 'Social Media API',
-    date: 'Dec 2025 – Jan 2026',
+    name: 'UFC Parlay Predictor',
+    url: 'https://ufc-parlay-predictor.vercel.app/',
+    date: 'Apr 2026 – Present',
     bullets: [
-      'Developed scalable RESTful APIs using FastAPI and ORM integrations to streamline database operations, designing and optimizing PostgreSQL schemas with pgAdmin4 to improve query performance and data reliability.',
-      'Containerized backend services with Docker and deployed on DigitalOcean with CI/CD pipelines supporting automated testing and continuous delivery using GitHub Actions.',
-      'Configured and maintained Ubuntu servers with Nginx to provide secure, stable runtime environments, implementing feature flag testing to enable controlled rollouts and A/B experimentation for new API features.',
+      'Scraped and cleaned 10,000+ UFC fight statistics using Pandas to build a structured dataset, engineering features such as fighter matchup history and using boolean masks to detect rematches.',
+      'Designed a multi-LLM pipeline to ingest and parse raw UFC parlay text, using prompt engineering and structured JSON outputs to reliably extract fighters, odds, and bet types for downstream modeling.',
+      'Implemented output validation and correction layers for LLM responses, enforcing schema constraints and reducing extraction errors through rule-based checks and fallback parsing strategies.',
+      'Trained multiple XGBoost models on 5,000+ UFC fights to predict outcomes (win/loss, over/under, and survival time), integrating LLM-extracted features into a unified predictive betting framework.',
     ],
   },
   {
@@ -36,11 +38,12 @@ const projects = [
   },
   {
     numeral: 'IV',
-    name: 'UFC Parlay Predictor',
-    date: 'Aug 2025 – Sep 2025',
+    name: 'Social Media API',
+    date: 'Dec 2025 – Jan 2026',
     bullets: [
-      'Scraped and cleaned 10,000+ UFC fight statistics using Pandas to build a structured dataset, analyzing fighter matchups with boolean masks to detect rematches.',
-      'Visualized trends with Seaborn/Matplotlib to prepare features for model training, and built regression models with Scikit-Learn to predict strikes, takedowns, and knockdowns.',
+      'Developed scalable RESTful APIs using FastAPI and ORM integrations to streamline database operations, designing and optimizing PostgreSQL schemas with pgAdmin4 to improve query performance and data reliability.',
+      'Containerized backend services with Docker and deployed on DigitalOcean with CI/CD pipelines supporting automated testing and continuous delivery using GitHub Actions.',
+      'Configured and maintained Ubuntu servers with Nginx to provide secure, stable runtime environments, implementing feature flag testing to enable controlled rollouts and A/B experimentation for new API features.',
     ],
   },
 ]
