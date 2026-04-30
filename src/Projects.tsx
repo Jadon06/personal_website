@@ -7,7 +7,7 @@ const projects = [
     logo: '/Logo.png',
     name: 'Canadian Athlete Network',
     url: 'https://canadian-athlete-directory-1c1o.vercel.app/',
-    date: 'Feb 2026 – Present',
+    date: 'Feb 2026 – Apr 2026',
     bullets: [
       'Engineered a high-performance REST API with FastAPI, supporting advanced athlete discovery through K-Nearest Neighbours (KNN) search and secure email-based authentication.',
       "Implemented a real-time direct messaging system using FastAPI's WebSocket framework to enable seamless athlete-recruiter communication.",
@@ -19,7 +19,7 @@ const projects = [
     numeral: 'II',
     name: 'UFC Parlay Predictor',
     url: 'https://ufc-parlay-predictor.vercel.app/',
-    date: 'Apr 2026 – Present',
+    date: 'Apr 2026 – May 2026',
     bullets: [
       'Scraped and cleaned 10,000+ UFC fight statistics using Pandas to build a structured dataset, engineering features such as fighter matchup history and using boolean masks to detect rematches.',
       'Designed a multi-LLM pipeline to ingest and parse raw UFC parlay text, using prompt engineering and structured JSON outputs to reliably extract fighters, odds, and bet types for downstream modeling.',
@@ -29,6 +29,18 @@ const projects = [
   },
   {
     numeral: 'III',
+    name: 'Sacramento Kings NBA Performance Analysis & AI Pipeline',
+    date: 'Apr 2026 – Present',
+    bullets: [
+      'Built a modular data extraction pipeline using BeautifulSoup and Requests to scrape 25+ years of structured data from Basketball Reference — including game logs, rosters, advanced metrics (Offensive/Defensive Rating, SRS, Pace), and player transaction histories — handling edge cases such as multi-level HTML headers, comment-hidden tables, and rate limiting.',
+      'Developed an LSTM autoencoder in Keras/TensorFlow to encode 66-game regular season sequences into dense 16-dimensional latent representations, enabling unsupervised comparison of team seasons across different eras.',
+      'Applied KMeans clustering and PCA dimensionality reduction to surface structural similarities between Sacramento Kings seasons and championship-winning teams since 2000, identifying that Kings seasons cluster as a statistically distinct group from champions across offensive rating, pace, and win patterns.',
+      'Built a RAG agent using LangChain, ChromaDB, and Claude (Anthropic) to answer natural language queries over 50+ years of NBA transaction records — implementing RAG Fusion with reciprocal rank fusion to broaden semantic retrieval coverage, and enforcing structured JSON output via Pydantic schemas.',
+      'Diagnosed and resolved multiple data integrity issues including ChromaDB batch size limits, pandas type coercion bugs across merged DataFrames, and inner-join data loss in multi-source merge pipelines.',
+    ],
+  },
+  {
+    numeral: 'IV',
     name: 'Wage Analysis',
     date: 'Sep 2025 – Dec 2025',
     bullets: [
@@ -37,7 +49,7 @@ const projects = [
     ],
   },
   {
-    numeral: 'IV',
+    numeral: 'V',
     name: 'Social Media API',
     date: 'Dec 2025 – Jan 2026',
     bullets: [
