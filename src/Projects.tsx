@@ -30,6 +30,7 @@ const projects = [
   {
     numeral: 'III',
     name: 'Sacramento Kings NBA Performance Analysis & AI Pipeline',
+    url: 'https://docs.google.com/document/d/1drO0vxwFxar8QIw61s6QQX4yFKbo7AuZ_Tkmq1jbgng/edit?tab=t.0#heading=h.196tktbhktn9',
     date: 'Apr 2026 – Present',
     bullets: [
       'Built a modular data extraction pipeline using BeautifulSoup and Requests to scrape 25+ years of structured data from Basketball Reference — including game logs, rosters, advanced metrics (Offensive/Defensive Rating, SRS, Pace), and player transaction histories — handling edge cases such as multi-level HTML headers, comment-hidden tables, and rate limiting.',
