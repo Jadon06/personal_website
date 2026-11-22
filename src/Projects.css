@@ -37,6 +37,14 @@
   margin: clamp(0.75rem, 1.5vw, 1.1rem) 0;
 }
 
+.platform-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(0.75rem, 2vw, 1.25rem);
+  margin: 0 auto clamp(0.75rem, 1.5vw, 1.1rem);
+}
+
 .tech-icon {
   width: clamp(26px, 3.5vw, 38px);
   height: clamp(26px, 3.5vw, 38px);
@@ -44,9 +52,43 @@
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-.tech-icon:hover {
+.tech-icon-item {
+  position: relative;
+  display: flex;
+  cursor: default;
+}
+
+.tech-icon-item::after {
+  content: attr(data-label);
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 0.55rem);
+  transform: translate(-50%, -4px);
+  width: max-content;
+  max-width: 180px;
+  padding: 0.35rem 0.55rem;
+  border: 1px solid #ffe04f55;
+  background: rgba(4, 9, 22, 0.96);
+  color: #ffe04f;
+  font-family: var(--body-font);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s ease;
+  z-index: 20;
+}
+
+.tech-icon-item:hover .tech-icon {
   opacity: 1;
   transform: translateY(-3px);
+}
+
+.tech-icon-item:hover::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
 }
 
 .projects-title-rule {
