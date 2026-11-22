@@ -58,30 +58,17 @@ function App() {
   const transitionAudioRef = useRef<HTMLAudioElement>(null)
   const crawlStartTimeRef = useRef<number>(0)
   const crawlDurationRef = useRef<number>(32)
-  const musicFadeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const musicFadeRafRef = useRef<number | null>(null)
+  const musicStartTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const hyperspaceExitAudioRef = useRef<HTMLAudioElement>(null)
   const projectsBtnRef = useRef<HTMLButtonElement>(null)
   const hobbiesBtnRef = useRef<HTMLButtonElement>(null)
 
-  const cancelMusicFade = () => {
-    if (musicFadeTimerRef.current !== null) { clearTimeout(musicFadeTimerRef.current); musicFadeTimerRef.current = null }
-    if (musicFadeRafRef.current !== null) { cancelAnimationFrame(musicFadeRafRef.current); musicFadeRafRef.current = null }
-  }
-
-  const startMusicFade = () => {
+  const startMusic = () => {
     const music = musicRef.current
-    if (!music || music.paused) return
-    const startVolume = music.volume
-    const fadeDuration = 5000
-    const start = Date.now()
-    const tick = () => {
-      const progress = Math.min((Date.now() - start) / fadeDuration, 1)
-      music.volume = startVolume * (1 - progress)
-      if (progress < 1) musicFadeRafRef.current = requestAnimationFrame(tick)
-      else music.pause()
+    if (music && music.paused) {
+      music.volume = 0.35
+      music.play().catch(() => {})
     }
-    musicFadeRafRef.current = requestAnimationFrame(tick)
   }
 
   const handlePageScroll = (e: React.UIEvent<HTMLDivElement>) => {
@@ -92,21 +79,20 @@ function App() {
 
   useEffect(() => {
     if (isMobile) {
-      const startMusic = () => {
-        const music = musicRef.current
-        if (music && music.paused) {
-          music.volume = 0.35
-          music.play().catch(() => {})
-          musicFadeTimerRef.current = setTimeout(startMusicFade, 0)
-        }
-        document.removeEventListener('click', startMusic)
-        document.removeEventListener('touchstart', startMusic)
+      const startMusicAfterDelay = () => {
+        document.removeEventListener('click', startMusicAfterDelay)
+        document.removeEventListener('touchstart', startMusicAfterDelay)
+        musicStartTimerRef.current = setTimeout(startMusic, 5000)
       }
-      document.addEventListener('click', startMusic)
-      document.addEventListener('touchstart', startMusic)
+      document.addEventListener('click', startMusicAfterDelay)
+      document.addEventListener('touchstart', startMusicAfterDelay)
       return () => {
-        document.removeEventListener('click', startMusic)
-        document.removeEventListener('touchstart', startMusic)
+        document.removeEventListener('click', startMusicAfterDelay)
+        document.removeEventListener('touchstart', startMusicAfterDelay)
+        if (musicStartTimerRef.current !== null) {
+          clearTimeout(musicStartTimerRef.current)
+          musicStartTimerRef.current = null
+        }
       }
     }
 
@@ -121,10 +107,15 @@ function App() {
       }
     }, 0)
     const waitPromptTimeout = setTimeout(() => setWaitPromptVisible(true), 3000)
+    musicStartTimerRef.current = setTimeout(startMusic, 5000)
     return () => {
       clearTimeout(exitSfxTimeout)
       clearTimeout(timeout)
       clearTimeout(waitPromptTimeout)
+      if (musicStartTimerRef.current !== null) {
+        clearTimeout(musicStartTimerRef.current)
+        musicStartTimerRef.current = null
+      }
     }
   }, [])
 
@@ -133,19 +124,16 @@ function App() {
   // Mute audio and stop music when leaving home
   useEffect(() => {
     if (currentPage !== 'home') {
-      cancelMusicFade()
+      if (musicStartTimerRef.current !== null) {
+        clearTimeout(musicStartTimerRef.current)
+        musicStartTimerRef.current = null
+      }
       if (musicRef.current) musicRef.current.pause()
     }
   }, [currentPage])
 
   const handleFirstWordVisible = () => {
     crawlStartTimeRef.current = Date.now()
-    const music = musicRef.current
-    if (music) {
-      music.volume = 0.35
-      music.play().catch(() => {})
-    }
-    musicFadeTimerRef.current = setTimeout(startMusicFade, 0)
   }
 
   const handleSoundMuteClick = () => {
