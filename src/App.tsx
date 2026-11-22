@@ -49,6 +49,7 @@ function App() {
 
   const [navHidden, setNavHidden] = useState(false)
   const [isSoundMuted, setIsSoundMuted] = useState(false)
+  const isSoundMutedRef = useRef(false)
   const [waitPromptVisible, setWaitPromptVisible] = useState(false)
   const lastScrollY = useRef(0)
 
@@ -65,10 +66,9 @@ function App() {
 
   const startMusic = () => {
     const music = musicRef.current
-    if (music && music.paused) {
-      music.volume = 0.35
-      music.play().catch(() => {})
-    }
+    if (!music) return
+    music.volume = 0.35
+    music.play().catch(() => {})
   }
 
   const handlePageScroll = (e: React.UIEvent<HTMLDivElement>) => {
@@ -78,15 +78,18 @@ function App() {
   }
 
   useEffect(() => {
-    const startMusicAfterDelay = () => {
-      document.removeEventListener('pointerdown', startMusicAfterDelay)
-      document.removeEventListener('keydown', startMusicAfterDelay)
-      if (isSoundMuted) return
-      musicStartTimerRef.current = setTimeout(startMusic, 5000)
+    const music = musicRef.current
+    if (music) {
+      music.muted = true
+      music.volume = 0.35
+      music.play().catch(() => {})
     }
-
-    document.addEventListener('pointerdown', startMusicAfterDelay)
-    document.addEventListener('keydown', startMusicAfterDelay)
+    musicStartTimerRef.current = setTimeout(() => {
+      if (musicRef.current && !isSoundMutedRef.current) {
+        musicRef.current.muted = false
+        if (musicRef.current.paused) musicRef.current.play().catch(() => {})
+      }
+    }, 5000)
 
     const exitSfxTimeout = setTimeout(() => {
       const sfx = hyperspaceExitAudioRef.current
@@ -103,8 +106,6 @@ function App() {
       clearTimeout(exitSfxTimeout)
       clearTimeout(timeout)
       clearTimeout(waitPromptTimeout)
-      document.removeEventListener('pointerdown', startMusicAfterDelay)
-      document.removeEventListener('keydown', startMusicAfterDelay)
       if (musicStartTimerRef.current !== null) {
         clearTimeout(musicStartTimerRef.current)
         musicStartTimerRef.current = null
@@ -131,6 +132,7 @@ function App() {
 
   const handleSoundMuteClick = () => {
     const next = !isSoundMuted
+    isSoundMutedRef.current = next
     setIsSoundMuted(next)
     if (musicRef.current) musicRef.current.muted = next
     if (transitionAudioRef.current) transitionAudioRef.current.muted = next
