@@ -78,23 +78,15 @@ function App() {
   }
 
   useEffect(() => {
-    if (isMobile) {
-      const startMusicAfterDelay = () => {
-        document.removeEventListener('click', startMusicAfterDelay)
-        document.removeEventListener('touchstart', startMusicAfterDelay)
-        musicStartTimerRef.current = setTimeout(startMusic, 5000)
-      }
-      document.addEventListener('click', startMusicAfterDelay)
-      document.addEventListener('touchstart', startMusicAfterDelay)
-      return () => {
-        document.removeEventListener('click', startMusicAfterDelay)
-        document.removeEventListener('touchstart', startMusicAfterDelay)
-        if (musicStartTimerRef.current !== null) {
-          clearTimeout(musicStartTimerRef.current)
-          musicStartTimerRef.current = null
-        }
-      }
+    const startMusicAfterDelay = () => {
+      document.removeEventListener('pointerdown', startMusicAfterDelay)
+      document.removeEventListener('keydown', startMusicAfterDelay)
+      if (isSoundMuted) return
+      musicStartTimerRef.current = setTimeout(startMusic, 5000)
     }
+
+    document.addEventListener('pointerdown', startMusicAfterDelay)
+    document.addEventListener('keydown', startMusicAfterDelay)
 
     const exitSfxTimeout = setTimeout(() => {
       const sfx = hyperspaceExitAudioRef.current
@@ -107,11 +99,12 @@ function App() {
       }
     }, 0)
     const waitPromptTimeout = setTimeout(() => setWaitPromptVisible(true), 3000)
-    musicStartTimerRef.current = setTimeout(startMusic, 5000)
     return () => {
       clearTimeout(exitSfxTimeout)
       clearTimeout(timeout)
       clearTimeout(waitPromptTimeout)
+      document.removeEventListener('pointerdown', startMusicAfterDelay)
+      document.removeEventListener('keydown', startMusicAfterDelay)
       if (musicStartTimerRef.current !== null) {
         clearTimeout(musicStartTimerRef.current)
         musicStartTimerRef.current = null
@@ -142,6 +135,7 @@ function App() {
     if (musicRef.current) musicRef.current.muted = next
     if (transitionAudioRef.current) transitionAudioRef.current.muted = next
     if (hyperspaceExitAudioRef.current) hyperspaceExitAudioRef.current.muted = next
+    if (!next) startMusic()
   }
 
   const startTransition = (next: Page, type: TransitionType, btn?: HTMLButtonElement | null) => {
@@ -203,7 +197,7 @@ function App() {
           if (audioRef.current) setCrawlDuration(audioRef.current.duration + 15)
         }}
       />
-      <audio ref={musicRef} src="/8d82b5_Star_Wars_Main_Theme_Song.mp3" />
+      <audio ref={musicRef} src="/8d82b5_Star_Wars_Main_Theme_Song.mp3" preload="auto" />
       <audio ref={transitionAudioRef} src="/trading_nation-transition-futuristic-ufo-121421.mp3" />
       <audio ref={hyperspaceExitAudioRef} src="/bh-exit-hyperspace.mp3" />
 
