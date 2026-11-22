@@ -4,6 +4,17 @@ import './Projects.css'
 const projects = [
   {
     numeral: 'I',
+    name: 'NBA Player Data Platform',
+    date: 'Nov 2026 – Present',
+    bullets: [
+      'Developed and implemented automated ETL pipelines within Azure Databricks using notebooks, orchestrating weekly data extraction, transformation, and loading workflows through Azure Databricks Jobs.',
+      'Implemented the Databricks Medallion Architecture (Bronze, Silver, and Gold) to structure raw ingestion, cleansing, transformation, and refined datasets for downstream analytics.',
+      'Leveraged Databricks Liquid Clustering to optimize table organization and query execution, improving query performance by 60% through layout optimization and targeted performance tuning.',
+      'Enabled Delta Lake Change Data Feed on Bronze tables to capture and track data modifications across weekly ETL runs, supporting change tracking and reliable downstream processing.',
+    ],
+  },
+  {
+    numeral: 'II',
     logo: '/Logo.png',
     name: 'Canadian Athlete Network',
     url: 'https://canadian-athlete-directory-1c1o.vercel.app/',
@@ -16,7 +27,7 @@ const projects = [
     ],
   },
   {
-    numeral: 'II',
+    numeral: 'III',
     name: 'UFC Parlay Predictor',
     url: 'https://ufc-parlay-predictor.vercel.app/',
     date: 'Apr 2026 – May 2026',
@@ -28,20 +39,19 @@ const projects = [
     ],
   },
   {
-    numeral: 'III',
-    name: 'Sacramento Kings NBA Performance Analysis & AI Pipeline',
+    numeral: 'IV',
+    name: 'Why do the Sacramento Kings Suck?',
     url: 'https://docs.google.com/document/d/1drO0vxwFxar8QIw61s6QQX4yFKbo7AuZ_Tkmq1jbgng/edit?tab=t.0#heading=h.196tktbhktn9',
-    date: 'Apr 2026 – Present',
+    date: 'Apr 2026',
     bullets: [
-      'Built a modular data extraction pipeline using BeautifulSoup and Requests to scrape 25+ years of structured data from Basketball Reference — including game logs, rosters, advanced metrics (Offensive/Defensive Rating, SRS, Pace), and player transaction histories — handling edge cases such as multi-level HTML headers, comment-hidden tables, and rate limiting.',
-      'Developed an LSTM autoencoder in Keras/TensorFlow to encode 66-game regular season sequences into dense 16-dimensional latent representations, enabling unsupervised comparison of team seasons across different eras.',
-      'Applied KMeans clustering and PCA dimensionality reduction to surface structural similarities between Sacramento Kings seasons and championship-winning teams since 2000, identifying that Kings seasons cluster as a statistically distinct group from champions across offensive rating, pace, and win patterns.',
-      'Built a RAG agent using LangChain, ChromaDB, and Claude (Anthropic) to answer natural language queries over 50+ years of NBA transaction records — implementing RAG Fusion with reciprocal rank fusion to broaden semantic retrieval coverage, and enforcing structured JSON output via Pydantic schemas.',
-      'Diagnosed and resolved multiple data integrity issues including ChromaDB batch size limits, pandas type coercion bugs across merged DataFrames, and inner-join data loss in multi-source merge pipelines.',
+      'Developed an LSTM autoencoder in Keras/TensorFlow to encode 66-game regular season sequences into dense 16-dimensional latent representations for unsupervised comparison across eras.',
+      'Applied KMeans clustering and PCA dimensionality reduction to identify structural similarities between Sacramento Kings seasons and championship-winning teams since 2000.',
+      'Built a RAG agent using LangChain, ChromaDB, and Claude to answer natural-language queries over 50+ years of NBA transaction records with RAG Fusion and reciprocal rank fusion.',
+      'Enforced structured JSON output through Pydantic schemas to provide consistent, reliable responses to NBA transaction queries.',
     ],
   },
   {
-    numeral: 'IV',
+    numeral: 'V',
     name: 'Wage Analysis',
     date: 'Sep 2025 – Dec 2025',
     bullets: [
@@ -50,7 +60,7 @@ const projects = [
     ],
   },
   {
-    numeral: 'V',
+    numeral: 'VI',
     name: 'Social Media API',
     date: 'Dec 2025 – Jan 2026',
     bullets: [
