@@ -73,7 +73,7 @@ function App() {
     const music = musicRef.current
     if (!music || music.paused) return
     const startVolume = music.volume
-    const fadeDuration = 10000
+    const fadeDuration = 5000
     const start = Date.now()
     const tick = () => {
       const progress = Math.min((Date.now() - start) / fadeDuration, 1)
@@ -97,6 +97,7 @@ function App() {
         if (music && music.paused) {
           music.volume = 0.35
           music.play().catch(() => {})
+          musicFadeTimerRef.current = setTimeout(startMusicFade, 0)
         }
         document.removeEventListener('click', startMusic)
         document.removeEventListener('touchstart', startMusic)
@@ -144,8 +145,7 @@ function App() {
       music.volume = 0.35
       music.play().catch(() => {})
     }
-    const fadeDelay = Math.max(0, (crawlDurationRef.current - 10) * 1000)
-    musicFadeTimerRef.current = setTimeout(startMusicFade, fadeDelay)
+    musicFadeTimerRef.current = setTimeout(startMusicFade, 0)
   }
 
   const handleSoundMuteClick = () => {
