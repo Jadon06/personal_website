@@ -80,9 +80,7 @@ function App() {
   useEffect(() => {
     const music = musicRef.current
     if (music) {
-      music.muted = true
       music.volume = 0.35
-      music.play().catch(() => {})
     }
     musicStartTimerRef.current = setTimeout(() => {
       if (musicRef.current && !isSoundMutedRef.current) {
