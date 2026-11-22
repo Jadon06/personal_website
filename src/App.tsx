@@ -46,10 +46,8 @@ function App() {
   const [showCrawl, setShowCrawl] = useState(false)
   const [crawlWidth, setCrawlWidth] = useState<string | undefined>(undefined)
   const [crawlDuration, setCrawlDuration] = useState<number>(32)
-  const [isMuted, setIsMuted] = useState(true)
 
   const [navHidden, setNavHidden] = useState(false)
-  const [showAudioHint, setShowAudioHint] = useState(true)
   const [isSoundMuted, setIsSoundMuted] = useState(false)
   const [waitPromptVisible, setWaitPromptVisible] = useState(false)
   const lastScrollY = useRef(0)
@@ -121,12 +119,10 @@ function App() {
         setShowCrawl(true)
       }
     }, 0)
-    const hintTimeout = setTimeout(() => setShowAudioHint(false), 10000)
     const waitPromptTimeout = setTimeout(() => setWaitPromptVisible(true), 3000)
     return () => {
       clearTimeout(exitSfxTimeout)
       clearTimeout(timeout)
-      clearTimeout(hintTimeout)
       clearTimeout(waitPromptTimeout)
     }
   }, [])
@@ -136,7 +132,6 @@ function App() {
   // Mute audio and stop music when leaving home
   useEffect(() => {
     if (currentPage !== 'home') {
-      if (audioRef.current) { audioRef.current.muted = true; setIsMuted(true) }
       cancelMusicFade()
       if (musicRef.current) musicRef.current.pause()
     }
@@ -144,7 +139,6 @@ function App() {
 
   const handleFirstWordVisible = () => {
     crawlStartTimeRef.current = Date.now()
-    audioRef.current?.play().catch(() => {})
     const music = musicRef.current
     if (music) {
       music.volume = 0.35
@@ -160,20 +154,6 @@ function App() {
     if (musicRef.current) musicRef.current.muted = next
     if (transitionAudioRef.current) transitionAudioRef.current.muted = next
     if (hyperspaceExitAudioRef.current) hyperspaceExitAudioRef.current.muted = next
-  }
-
-  const handleNarrateClick = () => {
-    const audio = audioRef.current
-    if (!audio) return
-    setShowAudioHint(false)
-    const nextMuted = !isMuted
-    setIsMuted(nextMuted)
-    audio.muted = nextMuted
-    if (!nextMuted && audio.paused && crawlStartTimeRef.current) {
-      const elapsed = (Date.now() - crawlStartTimeRef.current) / 1000
-      audio.currentTime = Math.min(elapsed, audio.duration || 0)
-      audio.play().catch(() => {})
-    }
   }
 
   const startTransition = (next: Page, type: TransitionType, btn?: HTMLButtonElement | null) => {
@@ -230,6 +210,7 @@ function App() {
       <audio
         ref={audioRef}
         src="/in-a-time-of-global-struggle-and-economic-distress-jadon-is-a-20-year-old-student-trying-to-make-his-way-in-the-world-bu.mp3"
+        muted
         onLoadedMetadata={() => {
           if (audioRef.current) setCrawlDuration(audioRef.current.duration + 15)
         }}
@@ -286,14 +267,6 @@ function App() {
         >
           Resume
         </a>
-        {currentPage === 'home' && !isMobile && (
-          <button
-            className={`nav-btn${!isMuted ? ' nav-btn--active' : ''}`}
-            onClick={handleNarrateClick}
-          >
-            Narrate
-          </button>
-        )}
         <a
           href="https://github.com/Jadon06"
           target="_blank"
@@ -332,10 +305,6 @@ function App() {
           )}
         </button>
       </nav>
-
-      {currentPage === 'home' && showAudioHint && !isMobile && (
-        <p className="audio-hint">click Narrate to turn off narration</p>
-      )}
 
       {currentPage === 'home' && (
         <>
