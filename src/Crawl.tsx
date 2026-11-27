@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef } from 'react';
 import './Crawl.css';
 
-const crawlText = `In a time of global struggle and economic distress, Jadon is a 20 year old student trying to make his way in the world. Building unique projects to help others, even in the slightest of ways, while also maintaining a 3.00/4 GPA. As social media grips the rest of the world in it's addictive clenches, Jadon seeks sports as his way of escape, breaking ankles on any court he steps on. When Jadon isn't out fighting his way into the corporate world, he's researching, and developing his skills to arm himself against his competition so that he can lead himself into a better future...`;
+const crawlText = `In a time of Global and economic struggle, a handsome young individual, named Jadon, travels earth in search for a career in sports data. He plays basketball, softball and a variety of other sports. He is a passionate individual with strong leadership qualities. As his job search is threatened by his lack of experience, he works on personal projects in hopes that someone will take a chance on him.`;
 
 interface CrawlProps {
   crawlWidth?: string
