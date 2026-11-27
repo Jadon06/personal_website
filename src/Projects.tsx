@@ -5,6 +5,7 @@ const projects = [
   {
     numeral: 'I',
     name: 'NBA Player Data Platform',
+    url: 'https://dbc-1c9c6d19-0eff.cloud.databricks.com/dashboardsv3/01f1e5e8f017194084ab4f49e96f90a6/published?o=7474660129286369',
     date: 'Nov 2026 – Present',
     bullets: [
       'Developed and implemented automated ETL pipelines within Azure Databricks using notebooks, orchestrating weekly data extraction, transformation, and loading workflows through Azure Databricks Jobs.',
